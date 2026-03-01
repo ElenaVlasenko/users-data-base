@@ -1,0 +1,48 @@
+{
+  "name": "users-data-base",
+  "version": "0.0.1",
+  "description": "demo project",
+  "main": "index.js",
+  "author": "Elena Vlasenko",
+  "license": "ISC",
+  "type": "module",
+  "homepage": "https://github.com/ElenaVlasenko/users-data-base#readme",
+  "scripts": {
+    "start": "webpack serve --config webpack.config.js --mode development --open",
+    "build": "webpack --config webpack.config.js --mode production",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElenaVlasenko/users-data-base.git"
+  },
+  "dependencies": {
+    "@ant-design/icons": "4.7.0",
+    "@tanstack/react-query": "4.43.0",
+    "antd": "5.29.3",
+    "axios": "1.13.6",
+    "dayjs": "1.11.19",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-router-dom": "6.30.3",
+    "styled-components": "5.3.10"
+  },
+  "devDependencies": {
+    "@types/node": "25.3.2",
+    "@types/react": "16.14.43",
+    "@types/react-dom": "16.9.14",
+    "@types/styled-components": "5.1.36",
+    "css-loader": "7.1.4",
+    "html-webpack-plugin": "5.6.6",
+    "mini-css-extract-plugin": "2.10.0",
+    "source-map-loader": "5.0.0",
+    "style-loader": "4.0.0",
+    "ts-loader": "9.5.4",
+    "typescript": "5.9.3",
+    "webpack": "5.105.3",
+    "webpack-cli": "6.0.1",
+    "webpack-dev-server": "5.2.3",
+    "esbuild": "0.27.3",
+    "esbuild-loader": "4.4.2"
+  }
+}
