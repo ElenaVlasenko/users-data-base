@@ -9,11 +9,9 @@ export const authenticate = async (login: string, password: string): Promise<str
 
   const isValid = login === VALID_LOGIN && password === VALID_PASSWORD;
 
-  if (!isValid) {
-    throw new Error('Invalid login or password');
-  }
-
-  return btoa(`${login}:${Date.now()}`);
+  return isValid 
+    ? Promise.resolve(btoa(`${login}:${Date.now()}`)) 
+    : Promise.reject(new Error('Invalid login or password'));
 };
 
 
