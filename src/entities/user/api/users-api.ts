@@ -9,13 +9,11 @@ export const createUserApi = (client: AxiosInstance) => {
 
     const createUser = async (body: CreateUserParams): Promise<User> => {
         const { data } = await client.post<User>('/users', body);
-
         return data;
     };
 
     const updateUser = async ({ id, ...body }: UpdateUserParams): Promise<User> => {
         const { data } = await client.put<User>(`/users/${id}`, body);
-
         return data;
     };
 

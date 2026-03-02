@@ -3,6 +3,7 @@ import { Alert, Avatar, Button, List, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useUsersQuery } from '@entities/user/api/queries';
 import { useAuth } from '@app/providers/auth/AuthProvider';
+import { CreateUserModal } from '@features/user-create/ui/CreateUserModal';
 import { User } from '@entities/user/model/types';
 import { formatDate } from '@shared/lib/date/formatDate';
 
@@ -90,6 +91,8 @@ const UsersPage = () => {
           Создать пользователя
         </Button>
       </div>
+
+      <CreateUserModal isOpen={isCreateModalOpen} onClose={() => setCreateModalOpen(false)} />
     </div>
   );
 };
