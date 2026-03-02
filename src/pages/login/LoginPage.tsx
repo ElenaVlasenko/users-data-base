@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useState, useRef, useEffect } from 'react';
 import { Alert, Button, Card, Form, Input, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@app/providers/auth/AuthProvider';
@@ -22,15 +22,30 @@ const LoginPage = () => {
   const { loginWithToken } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleError = (err: unknown) => {
     const message = err instanceof Error ? err.message : 'Unexpected error';
-    setError(message);
+    
+    if (isMounted.current) { 
+      setError(message); 
+    };
   }
 
   const submit = async ({ login, password }: LoginFormValues) => {
-    setIsLoading(true);
-    setError(null);
+    if (isMounted.current) { 
+      setIsLoading(true); 
+    }
+    
+    if (isMounted.current) { 
+      setError(null); 
+    }
 
     try {
       const token = await authenticate(login, password);
@@ -39,7 +54,7 @@ const LoginPage = () => {
     } catch (err) {
       handleError(err);
     } finally {
-      setIsLoading(false);
+      if (isMounted.current) setIsLoading(false);
     }
   };
 
