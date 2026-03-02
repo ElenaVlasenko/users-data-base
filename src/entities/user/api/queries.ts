@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createUserApi } from './users-api';
 
 const { client, setAuthToken } = createApiClient();
-const { fetchUsers, createUser, updateUser } = createUserApi(client);
+const { fetchUsers, createUser, updateUser, deleteUser } = createUserApi(client);
 
 export const USERS_QUERY_KEY = ['users'];
 
@@ -28,6 +28,17 @@ export const useUpdateUserMutation = () => {
 
   return useMutation({
     mutationFn: updateUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: USERS_QUERY_KEY });
+    }
+  });
+};
+
+export const useDeleteUserMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => deleteUser(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: USERS_QUERY_KEY });
     }
