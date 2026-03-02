@@ -6,6 +6,7 @@ import { useAuth } from '@app/providers/auth/AuthProvider';
 import { CreateUserModal } from '@features/user-create/ui/CreateUserModal';
 import { User } from '@entities/user/model/types';
 import { formatDate } from '@shared/lib/date/formatDate';
+import { EditUserModal } from '@features/user-edit/ui/EditUserModal';
 
 const pageStyles: CSSProperties = {
   width: '100%',
@@ -67,15 +68,26 @@ const UsersPage = () => {
         renderItem={(user) => (
           <List.Item
             key={user.id}
-            style={{ paddingLeft: 0, paddingRight: 0, cursor: 'pointer', maxWidth: '75%' }}
-            onClick={() => setSelectedUser(user)}
+            style={{ paddingLeft: 0, paddingRight: 0, maxWidth: '75%' }}
           >
             <Space size="middle">
-              <Avatar size={40} src={user.avatar} alt={user.name}>
+              <Avatar
+                size={40}
+                src={user.avatar}
+                alt={user.name}
+                onClick={() => setSelectedUser(user)}
+                style={{ cursor: 'pointer' }}
+              >
                 {user.name.charAt(0).toUpperCase()}
               </Avatar>
               <div>
-                <Typography.Text strong>{user.name}</Typography.Text>
+                <Typography.Text
+                  strong
+                  onClick={() => setSelectedUser(user)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {user.name}
+                </Typography.Text>
                 <br />
                 <Typography.Text type="secondary">
                   Зарегистрирован {formatDate(user.createdAt)}
@@ -91,8 +103,8 @@ const UsersPage = () => {
           Создать пользователя
         </Button>
       </div>
-
       <CreateUserModal isOpen={isCreateModalOpen} onClose={() => setCreateModalOpen(false)} />
+      <EditUserModal isOpen={Boolean(selectedUser)} user={selectedUser} onClose={() => setSelectedUser(null)} />
     </div>
   );
 };

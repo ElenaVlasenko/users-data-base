@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, App as AntdApp } from 'antd';
 import { AuthProvider } from './providers/auth/AuthProvider';
 import { createRouter } from './providers/router/router';
 import { RouterProvider } from 'react-router-dom';
@@ -13,11 +13,13 @@ const App = () => (
       colorBorderSecondary: '#a2a4a9'
     }
   }}>
-    <AuthProvider onAuthTokenChange={setAuthToken}>
-      <AppQueryClientProvider>
-        <RouterProvider router={createRouter()} />
-      </AppQueryClientProvider>
-    </AuthProvider>
+    <AntdApp>
+      <AuthProvider onAuthTokenChange={setAuthToken}>
+        <AppQueryClientProvider>
+          <RouterProvider router={createRouter()} future={{ v7_startTransition: true }} />
+        </AppQueryClientProvider>
+      </AuthProvider>
+    </AntdApp>
   </ConfigProvider>
 );
 
