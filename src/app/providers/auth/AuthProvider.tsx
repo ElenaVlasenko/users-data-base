@@ -17,27 +17,27 @@ const createSessionState = (token: string | null): SessionState => ({
 
 type AuthProviderProps = {
   children: ReactNode;
-  setAuthToken: (token: string | null) => void;
+  onAuthTokenChange: (token: string | null) => void;
 };
 
-export const AuthProvider = ({ children, setAuthToken }: AuthProviderProps) => {
+export const AuthProvider = ({ children, onAuthTokenChange }: AuthProviderProps) => {
   const [session, setSession] = useState(createSessionState(getStoredToken()));
   const [isAuthReady, setAuthReady] = useState(false);
 
   useEffect(() => {
-    setAuthToken(session.token);
+    onAuthTokenChange(session.token);
     setAuthReady(true);
   }, []);
 
   const loginWithToken = (token: string) => {
     saveToken(token);
-    setAuthToken(token);
+    onAuthTokenChange(token);
     setSession(createSessionState(token));
   };
 
   const logout = () => {
     clearToken();
-    setAuthToken(null);
+    onAuthTokenChange(null);
     setSession(createSessionState(null));
   };
 
