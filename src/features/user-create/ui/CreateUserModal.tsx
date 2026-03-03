@@ -52,6 +52,8 @@ export const CreateUserModal = ({ isOpen, onClose }: CreateUserModalProps) => {
           <Alert
             type="error"
             showIcon
+            closable
+            onClose={() => reset()}
             message="Не удалось создать пользователя"
             description={error instanceof Error ? error.message : 'Повторите попытку.'}
           />
