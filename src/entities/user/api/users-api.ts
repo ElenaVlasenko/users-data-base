@@ -17,9 +17,14 @@ export const createUserApi = (client: AxiosInstance) => {
         return data;
     };
 
+    const deleteUser = async (id: string): Promise<void> => {
+        await client.delete(`/users/${id}`);
+    };
+
     return ({
         fetchUsers,
         createUser,
-        updateUser
+        updateUser,
+        deleteUser
     });
 };
