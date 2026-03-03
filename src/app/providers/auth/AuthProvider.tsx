@@ -20,24 +20,24 @@ type AuthProviderProps = {
   onAuthTokenChange: (token: string | null) => void;
 };
 
-export const AuthProvider = ({ children, onAuthTokenChange }: AuthProviderProps) => {
+export const AuthProvider = ({ children, onAuthTokenChange: setAuthToken }: AuthProviderProps) => {
   const [session, setSession] = useState(createSessionState(getStoredToken()));
   const [isAuthReady, setAuthReady] = useState(false);
 
   useEffect(() => {
-    onAuthTokenChange(session.token);
+    setAuthToken(session.token);
     setAuthReady(true);
   }, []);
 
   const loginWithToken = (token: string) => {
     saveToken(token);
-    onAuthTokenChange(token);
+    setAuthToken(token);
     setSession(createSessionState(token));
   };
 
   const logout = () => {
     clearToken();
-    onAuthTokenChange(null);
+    setAuthToken(null);
     setSession(createSessionState(null));
   };
 
